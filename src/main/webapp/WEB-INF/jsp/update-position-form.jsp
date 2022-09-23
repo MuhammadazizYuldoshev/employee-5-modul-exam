@@ -24,13 +24,13 @@
                 <input type="hidden" name="id" value="${position.id}">
 
                 <div class="mb-3">
-                    <label for="bookTitle" class="form-label">NAME</label>
-                    <input name="name" type="text" class="form-control" id="bookTitle" value="${position.name}">
+                    <label for="name" class="form-label">NAME</label>
+                    <input name="position_name" type="text" class="form-control" id="name" value="${position.position_name}">
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputPassword">DESCRIPTION</label>
-                    <textarea class="form-control" id="exampleInputPassword" rows="10" cols="45"  name="description">${position.description}</textarea>
+                    <label for="description">DESCRIPTION</label>
+                    <textarea class="form-control" id="description" rows="10" cols="45"  name="description">${position.description}</textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">UPDATE</button>

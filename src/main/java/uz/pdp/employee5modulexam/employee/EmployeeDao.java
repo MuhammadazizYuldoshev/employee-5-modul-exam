@@ -51,7 +51,7 @@ public class EmployeeDao {
                                 .position(
                                         Position.builder()
                                                 .id(positionId)
-                                                .name(positionName)
+                                                .position_name(positionName)
                                                 .build()
                                 )
                                 .build()
@@ -86,7 +86,7 @@ public class EmployeeDao {
     }
 
     public void saveEmployee(Employee employee) {
-        String sql = "insert into employee (name,,lastname,salary,position_id) values(?,?,?,?)";
+        String sql = "insert into employee (name,lastname,salary,position_id) values(?,?,?,?)";
         jdbcTemplate.update(sql,employee.getName(),employee.getLastname(),employee.getSalary(),employee.getPosition_id());
     }
 
@@ -94,20 +94,17 @@ public class EmployeeDao {
 
         try (Connection connection = getConnection()) {
 
-            String sql = "select e.id,e.name,e.lastname,e.salary,e.position_id,p.position_name from employee e join position p on p.id = e.position_id where e.id = ?"; // TODO: 25/08/22 select additional informations...
+            String sql = "select e.id,e.name,e.lastname,e.salary,p.id from employee e join position p on p.id = e.position_id where e.id = ?"; // TODO: 25/08/22 select additional informations...
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Employee employee = Employee.builder()
-                        .id(resultSet.getInt("id"))
-                        .name(resultSet.getString("name"))
-                        .lastname(resultSet.getString("lastname"))
-                        .salary(resultSet.getInt("salary"))
-                        .position(Position.builder()
-                                .id(resultSet.getInt("position_id"))
-                                .name(resultSet.getString("position_name"))
-                                .build())
+                        .id(resultSet.getInt(1))
+                        .name(resultSet.getString(2))
+                        .lastname(resultSet.getString(3))
+                        .salary(resultSet.getInt(4))
+                        .position_id(resultSet.getInt(5))
                         .build();
                 return employee;
             }

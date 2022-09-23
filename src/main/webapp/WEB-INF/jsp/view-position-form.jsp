@@ -41,7 +41,7 @@
                         </td>
 
                         <td>
-                                ${position.name}
+                                ${position.position_name}
                         </td>
                         <td>
                             <a class="btn btn-warning" href="/position/edit/${position.id}">EDIT</a>

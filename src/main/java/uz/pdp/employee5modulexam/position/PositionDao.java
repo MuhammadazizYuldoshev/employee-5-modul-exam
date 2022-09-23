@@ -22,7 +22,7 @@ public class PositionDao {
         return jdbcTemplate.query(sql, (rs, row) ->
                 Position.builder()
                         .id(rs.getInt(1))
-                        .name(rs.getString(2))
+                        .position_name(rs.getString(2))
                         .build()
         );
     }
@@ -32,9 +32,9 @@ public class PositionDao {
 
 
         //add category
-        String sql = "insert into position (name,description) values (?,?)";
+        String sql = "insert into position (position_name,description) values (?,?)";
 
-        jdbcTemplate.update(sql,position.getName(),position.getDescription());
+        jdbcTemplate.update(sql,position.getPosition_name(),position.getDescription());
 
     }
 
@@ -49,9 +49,9 @@ public class PositionDao {
 
     public void updatePosition(Position position) {
 
-        String sql = "update position set name=?,description=? where id=?";
+        String sql = "update position set position_name=?,description=? where id=?";
 
-        jdbcTemplate.update(sql,position.getName(),position.getDescription(),position.getId());
+        jdbcTemplate.update(sql,position.getPosition_name(),position.getDescription(),position.getId());
     }
 
 
@@ -92,7 +92,7 @@ public class PositionDao {
             while (resultSet.next()) {
                 Position position = Position.builder()
                         .id(resultSet.getInt(1))
-                        .name(resultSet.getString(2))
+                        .position_name(resultSet.getString(2))
                         .description(resultSet.getString(3))
                         .build();
 
