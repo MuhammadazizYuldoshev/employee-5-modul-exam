@@ -24,8 +24,8 @@
             <form action="/position" method="post">
 
                 <div class="mb-3">
-                    <label for="bookTitle" class="form-label">NAME</label>
-                    <input name="name" type="text" class="form-control" id="bookTitle">
+                    <label for="name" class="form-label">NAME</label>
+                    <input name="name" type="text" class="form-control" id="name">
                 </div>
 
                 <div class="mb-3">

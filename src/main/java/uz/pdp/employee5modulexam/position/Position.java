@@ -14,7 +14,7 @@ public class Position {
 
     private Integer id;
 
-    private String name;
+    private String position_name;
 
     private String description;
 

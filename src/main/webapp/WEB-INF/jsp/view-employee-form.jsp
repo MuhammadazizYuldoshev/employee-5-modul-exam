@@ -53,7 +53,7 @@
                                 ${employee.salary}
                         </td>
                         <td>
-                                ${employee.position.name}
+                                ${employee.position.position_name}
                         </td>
                         <td>
                             <a class="btn btn-warning" href="/employees/edit/${employee.id}">EDIT</a>
