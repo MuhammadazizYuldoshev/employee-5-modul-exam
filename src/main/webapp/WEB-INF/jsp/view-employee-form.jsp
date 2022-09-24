@@ -31,6 +31,7 @@
                     <th scope="col">LAST NAME</th>
                     <th scope="col">SALARY</th>
                     <th scope="col">POSITION</th>
+                    <th scope="col">COUNTRY</th>
                     <th scope="col">ACTION</th>
 
                 </tr>
@@ -54,6 +55,9 @@
                         </td>
                         <td>
                                 ${employee.position.position_name}
+                        </td>
+                        <td>
+                                ${employee.country.country_name}
                         </td>
                         <td>
                             <a class="btn btn-warning" href="/employees/edit/${employee.id}">EDIT</a>

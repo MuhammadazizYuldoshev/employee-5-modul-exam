@@ -1,4 +1,4 @@
-package uz.pdp.employee5modulexam.position;
+package uz.pdp.employee5modulexam.livecountry;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -11,62 +11,57 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class PositionDao {
+public class LiveCountryDao {
 
     private final JdbcTemplate jdbcTemplate;
 
 
-    public List<Position> getAllPositionsForSelect() {
-        String sql = "select p.id, p.position_name\n" +
-                "from position p;";
+    public List<LiveCountry> getAllCountryForSelect() {
+        String sql = "select l.id, l.country_name\n" +
+                "from live_country l;";
         return jdbcTemplate.query(sql, (rs, row) ->
-                Position.builder()
+                LiveCountry.builder()
                         .id(rs.getInt(1))
-                        .position_name(rs.getString(2))
+                        .country_name(rs.getString(2))
                         .build()
         );
     }
 
 
-    public void savePosition(Position position) {
+    public void saveCountry(LiveCountry country) {
 
+        String sql = "insert into live_country (country_name) values (?)";
 
-        //add category
-        String sql = "insert into position (position_name,description) values (?,?)";
-
-        jdbcTemplate.update(sql,position.getPosition_name(),position.getDescription());
+        jdbcTemplate.update(sql,country.getCountry_name());
 
     }
 
 
-
-
-
-    public Position getPosition(int id) {
-        String sql = "select * from position where id="+id;
-        return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Position.class));
+    public LiveCountry getCountry(int id) {
+        String sql = "select * from live_country where id="+id;
+        return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(LiveCountry.class));
     }
 
-    public void updatePosition(Position position) {
+    public void updateCountry(LiveCountry country) {
+        //update country
+        String sql = "update live_country set country_name=? where id=?";
 
-        String sql = "update position set position_name=?,description=? where id=?";
-
-        jdbcTemplate.update(sql,position.getPosition_name(),position.getDescription(),position.getId());
+        jdbcTemplate.update(sql,country.getCountry_name(),country.getId());
     }
 
 
 
     public void delete(int id) {
-        String sql = "delete from position where id=?";
+        String sql = "delete from live_country where id=?";
         jdbcTemplate.update(sql,id);
 
     }
 
 
-    public  int getCountOfPositions() {
+    public  int getCountOfCountries() {
         try (Connection connection = getConnection()) {
 
-            String sql = "select count(*) from position";
+            String sql = "select count(*) from live_country";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -79,24 +74,23 @@ public class PositionDao {
 
     }
 
-    public List<Position> getAllPositions(int size,int page){
+    public List<LiveCountry> getAllCountry(int size, int page){
 
-        List<Position> positionList = new ArrayList<>();
+        List<LiveCountry> countryList = new ArrayList<>();
         Connection connection = getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from position limit ? offset (? - 1) * ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from live_country limit ? offset (? - 1) * ?");
             preparedStatement.setInt(1,size);
             preparedStatement.setInt(2,page);
             preparedStatement.setInt(3,size);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Position position = Position.builder()
+                LiveCountry country = LiveCountry.builder()
                         .id(resultSet.getInt(1))
-                        .position_name(resultSet.getString(2))
-                        .description(resultSet.getString(3))
+                        .country_name(resultSet.getString(2))
                         .build();
 
-                positionList.add(position);
+                countryList.add(country);
             }
 
             connection.close();
@@ -108,7 +102,7 @@ public class PositionDao {
             throw new RuntimeException(e);
         }
 
-        return positionList;
+        return countryList;
     }
 
 

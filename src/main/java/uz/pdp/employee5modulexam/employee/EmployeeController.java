@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import uz.pdp.employee5modulexam.livecountry.LiveCountryDao;
 import uz.pdp.employee5modulexam.position.Position;
 import uz.pdp.employee5modulexam.position.PositionDao;
 
@@ -19,6 +20,8 @@ public class EmployeeController {
 
     private final EmployeeDao employeeDao;
     private final PositionDao positionDao;
+
+    private final LiveCountryDao countryDao;
 
     @GetMapping("/{pageStr}")
     public String viewProduct(@PathVariable String pageStr, Model model){
@@ -41,6 +44,7 @@ public class EmployeeController {
     @GetMapping("/add-form")
     public String addEmployeeForm(Model model){
         model.addAttribute("positionList",positionDao.getAllPositionsForSelect());
+        model.addAttribute("countryList",countryDao.getAllCountryForSelect());
         return "add-employee-form";
     }
 

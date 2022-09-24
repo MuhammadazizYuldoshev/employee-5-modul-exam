@@ -53,6 +53,18 @@
                         </c:forEach>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="countryId">POSITION</label>
+                    <select id="countryId"
+                            class="selectpicker form-control"
+                            aria-label="Please select categories"
+                            data-live-search="true"
+                            name="livecountry_id">
+                        <c:forEach items="${countryList}" var="val">
+                            <option value="${val.id}">${val.country_name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
 
 
                 <button type="submit" class="btn btn-primary">SAVE</button>
