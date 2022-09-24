@@ -43,6 +43,10 @@
                     <label for="salary" class="form-label">SALARY</label>
                     <input name="salary" type="number" class="form-control" id="salary" value="${employee.salary}">
                 </div>
+                <div class="mb-3">
+                    <label for="biography">BIOGRAPHY</label>
+                    <textarea class="form-control" id="biography" name="biography" rows="5" cols="25">${employee.biography}</textarea>
+                </div>
                 <div class="form-group">
                     <label for="POSITION">POSITION</label>
                     <select id="POSITION"
@@ -56,6 +60,24 @@
                                 </c:when>
                                 <c:otherwise>
                                     <option value="${val.id}">${val.position_name}</option>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="country">POSITION</label>
+                    <select id="country"
+                            class="selectpicker form-control"
+                            aria-label="Please select categories"
+                            name="livecountry_id">
+                        <c:forEach items="${country}" var="val">
+                            <c:choose>
+                                <c:when test="${employee.livecountry_id==val.id}">
+                                    <option selected value="${val.id}">${val.country_name}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${val.id}">${val.country_name}</option>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>

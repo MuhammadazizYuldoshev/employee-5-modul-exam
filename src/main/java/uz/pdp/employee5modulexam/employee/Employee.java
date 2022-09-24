@@ -18,6 +18,7 @@ public class Employee {
     private String lastname;
     private String description;
     private Integer salary;
+    private String biography;
     private Position position;
     private Integer position_id;
     private LiveCountry country;

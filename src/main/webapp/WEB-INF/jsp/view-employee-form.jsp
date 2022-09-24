@@ -45,7 +45,7 @@
                         </td>
 
                         <td>
-                                ${employee.name}
+                            <a class="text-black" href="/employees/biography/${employee.id}">${employee.name}</a>
                         </td>
                         <td>
                                 ${employee.lastname}

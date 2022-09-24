@@ -1,6 +1,7 @@
 package uz.pdp.employee5modulexam.employee;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import uz.pdp.employee5modulexam.livecountry.LiveCountry;
@@ -93,15 +94,15 @@ public class EmployeeDao {
     }
 
     public void saveEmployee(Employee employee) {
-        String sql = "insert into employee (name,lastname,salary,position_id) values(?,?,?,?)";
-        jdbcTemplate.update(sql,employee.getName(),employee.getLastname(),employee.getSalary(),employee.getPosition_id());
+        String sql = "insert into employee (name,lastname,salary,biography,position_id,livecountry_id) values(?,?,?,?,?,?)";
+        jdbcTemplate.update(sql,employee.getName(),employee.getLastname(),employee.getSalary(),employee.getBiography(),employee.getPosition_id(),employee.getLivecountry_id());
     }
 
     public  Employee getEmployeeById(int id) {
 
         try (Connection connection = getConnection()) {
 
-            String sql = "select e.id,e.name,e.lastname,e.salary,p.id from employee e join position p on p.id = e.position_id where e.id = ?"; // TODO: 25/08/22 select additional informations...
+            String sql = "select e.id,e.name,e.lastname,e.salary,p.id,l.id from employee e join position p on p.id = e.position_id join live_country l on l.id=e.livecountry_id where e.id = ?"; // TODO: 25/08/22 select additional informations...
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -112,6 +113,7 @@ public class EmployeeDao {
                         .lastname(resultSet.getString(3))
                         .salary(resultSet.getInt(4))
                         .position_id(resultSet.getInt(5))
+                        .livecountry_id(resultSet.getInt(6))
                         .build();
                 return employee;
             }
@@ -124,13 +126,20 @@ public class EmployeeDao {
     }
 
     public void updateEmployee(Employee employee) {
-        String sql = "update employee set name=?,lastname=?,salary=?,position_id=? where id=?";
-        jdbcTemplate.update(sql,employee.getName(),employee.getLastname(),employee.getSalary(),employee.getPosition_id(),employee.getId());
+        String sql = "update employee set name=?,lastname=?,salary=?,biography=?,position_id=?,livecountry_id=? where id=?";
+        jdbcTemplate.update(sql,employee.getName(),employee.getLastname(),employee.getSalary(),employee.getBiography(),employee.getPosition_id(),employee.getLivecountry_id(),employee.getId());
     }
 
 
     public void delete(int id) {
         String sql = "delete from employee where id=?";
         jdbcTemplate.update(sql,id);
+    }
+
+    public Employee getBiographyById(int id) {
+
+        String sql = "select * from employee where id="+id;
+        return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Employee.class));
+
     }
 }

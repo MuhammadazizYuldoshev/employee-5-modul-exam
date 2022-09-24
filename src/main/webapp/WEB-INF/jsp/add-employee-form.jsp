@@ -41,6 +41,11 @@
                     <label for="salary" class="form-label">SALARY</label>
                     <input name="salary" type="number" class="form-control" id="salary">
                 </div>
+                <div class="mb-3">
+                    <label for="biography">BIOGRAPHY</label>
+                    <textarea class="form-control" id="biography" name="biography" rows="5" cols="25"></textarea>
+                </div>
+
                 <div class="form-group">
                     <label for="positionId">POSITION</label>
                     <select id="positionId"

@@ -25,6 +25,7 @@ public class PositionController {
         }
 
         List<Position> allPositions = positionDao.getAllPositions(size,page);
+        System.out.println("allPositions = " + allPositions);
         model.addAttribute("positions",allPositions);
         model.addAttribute("totalElementsCount",positionDao.getCountOfPositions());
         model.addAttribute("size",size);

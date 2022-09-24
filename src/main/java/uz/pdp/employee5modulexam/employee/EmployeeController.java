@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import uz.pdp.employee5modulexam.livecountry.LiveCountry;
 import uz.pdp.employee5modulexam.livecountry.LiveCountryDao;
 import uz.pdp.employee5modulexam.position.Position;
 import uz.pdp.employee5modulexam.position.PositionDao;
@@ -59,8 +60,10 @@ public class EmployeeController {
         Employee employee = employeeDao.getEmployeeById(id);
         System.out.println(employee);
         List<Position> allPositionsForSelect = positionDao.getAllPositionsForSelect();
+        List<LiveCountry> allCountryForSelect = countryDao.getAllCountryForSelect();
         model.addAttribute("employee",employee);
         model.addAttribute("position",allPositionsForSelect);
+        model.addAttribute("country",allCountryForSelect);
         return "update-employee-form";
     }
 
@@ -75,6 +78,14 @@ public class EmployeeController {
     public String delete(@PathVariable int id){
         employeeDao.delete(id);
         return "redirect:/employees/1";
+    }
+
+    @GetMapping("/biography/{id}")
+    public String getEmployeeBiographyById(@PathVariable int id,Model model){
+
+        Employee biographyById = employeeDao.getBiographyById(id);
+        model.addAttribute("employee",biographyById);
+        return "employee-biography";
     }
 
 
