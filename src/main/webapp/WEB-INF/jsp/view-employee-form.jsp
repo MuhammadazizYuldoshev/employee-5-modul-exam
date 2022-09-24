@@ -20,6 +20,8 @@
     <h1>EMPLOYEES LIST</h1>
 
     <a class="btn btn-outline-primary my-4" href="/employees/add-form">ADD NEW EMPLOYEE</a>
+    <a class="btn btn-outline-primary my-4" href="/position/1">EMPLOYEE POSITION LIST</a>
+    <a class="btn btn-outline-primary my-4" href="/country/1">EMPLOYEE COUNTRY LIST</a>
     <div class="row">
         <div class="col-md-12">
             <table class="table">
