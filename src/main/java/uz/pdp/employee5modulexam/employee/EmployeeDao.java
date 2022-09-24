@@ -3,6 +3,7 @@ package uz.pdp.employee5modulexam.employee;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import uz.pdp.employee5modulexam.livecountry.LiveCountry;
 import uz.pdp.employee5modulexam.position.Position;
 
 import java.sql.Connection;
@@ -23,7 +24,7 @@ public class EmployeeDao {
     public List<Employee> getAllEmployees(int size, int page){
         List<Employee> employeeList = new ArrayList<>();
         Connection connection = getConnection();
-        String sql = "select e.id,e.name,e.lastname,e.salary,e.position_id,p.position_name from employee e join position p on e.position_id=p.id  limit ? offset (?-1) * ?";
+        String sql = "select e.id,e.name,e.lastname,e.salary,e.position_id,e.livecountry_id,p.position_name,l.country_name from employee e join position p on e.position_id=p.id join live_country l on e.livecountry_id=l.id  limit ? offset (?-1) * ?";
 
 
         try {
@@ -40,7 +41,9 @@ public class EmployeeDao {
                 String lastname = resultSet.getString(3);
                 int salary = resultSet.getInt(4);
                 int positionId = resultSet.getInt(5);
-                String positionName = resultSet.getString(6);
+                int countryId = resultSet.getInt(6);
+                String positionName = resultSet.getString(7);
+                String countryName = resultSet.getString(8);
 
                 employeeList.add(
                         Employee.builder()
@@ -54,6 +57,10 @@ public class EmployeeDao {
                                                 .position_name(positionName)
                                                 .build()
                                 )
+                                .country(LiveCountry.builder()
+                                        .id(countryId)
+                                        .country_name(countryName)
+                                        .build())
                                 .build()
                 );
 
