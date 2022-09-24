@@ -25,7 +25,7 @@
 
                 <div class="mb-3">
                     <label for="name" class="form-label">NAME</label>
-                    <input name="name" type="text" class="form-control" id="name">
+                    <input name="position_name" type="text" class="form-control" id="name">
                 </div>
 
                 <div class="mb-3">
